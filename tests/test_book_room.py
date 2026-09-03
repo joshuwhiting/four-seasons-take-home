@@ -9,3 +9,4 @@ def test_can_search_and_select_hotel(page):
 
     assert "cabo" in page.url.lower()
     page.get_by_role("navigation", name="Top Navigation").wait_for()
+
