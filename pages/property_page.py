@@ -1,10 +1,10 @@
-from playwright.sync_api import Page
+from pages.base_page import BasePage
 
+# A single hotel/resort landing page: pick dates and check rates.
+class PropertyPage(BasePage):
 
-class PropertyPage:
+    def select_date(self, check_in: str, check_out: str):
+        pass
 
-    def __init__(self, page: Page):
-        self.page = page
-
-    def goto(self, url : str):
-        self.page.goto(url)
+    def check_rates(self):
+        pass

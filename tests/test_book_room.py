@@ -1,7 +1,5 @@
 from pages.hotel_search_page import HotelSearchPage
 
-
-
 def test_can_search_and_select_hotel(page):
     search_page = HotelSearchPage(page)
     search_page.goto(HotelSearchPage.URL)

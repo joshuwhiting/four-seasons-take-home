@@ -1,8 +1,9 @@
-from pages.property_page import PropertyPage
+from pages.base_page import BasePage
 
-class HotelSearchPage(PropertyPage):
+# expand the region and search the hotel, then click the proptery 
+class HotelSearchPage(BasePage):
     URL = "https://www.fourseasons.com/find_a_hotel_or_resort/"
-    
+
     def expand_region(self, region_name: str):
         button = self.page.get_by_role("button", name=region_name)
         if button.get_attribute("aria-expanded") == "false":
