@@ -1,0 +1,40 @@
+name: Four Seasons Booking Test
+
+on:
+  schedule:
+    # Runs once a day at 09:00 UTC. Cron syntax: minute hour day month weekday.
+    - cron: "0 9 * * *"
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        run: |
+          playwright install --with-deps chromium
+
+      - name: Run tests
+        run: |
+          pytest tests/test_book_room.py -v
+
+      - name: Upload test recording
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-videos
+          path: videos/
+          retention-days: 7

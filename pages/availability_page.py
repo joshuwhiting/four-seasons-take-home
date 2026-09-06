@@ -1,4 +1,5 @@
 import re
+from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from pages.base_page import BasePage
 from utils.price_helpers import parse_cad_amount
 
@@ -19,10 +20,14 @@ class AvailabilityPage(BasePage):
 
     # verify if options are available
     def has_rooms_available(self):
-        # wait for the results area to settle — either real rooms or bed-option rooms
-        self.page.locator(
-            '[data-tracking-id="add-to-cart"], button:has-text("Select Bed Options")'
-        ).first.wait_for(timeout=40000)
+        # wait for the results area to settle — either real rooms or bed-option rooms.
+        # If neither ever renders the property is sold out for these dates.
+        try:
+            self.page.locator(
+                '[data-tracking-id="add-to-cart"], button:has-text("Select Bed Options")'
+            ).first.wait_for(timeout=40000)
+        except PlaywrightTimeoutError:
+            return False
         add_to_cart_visible = self._add_to_cart_buttons().first.is_visible()
         bed_options_visible = self.page.get_by_role("button", name="Select Bed Options").first.is_visible()
         return add_to_cart_visible or bed_options_visible
