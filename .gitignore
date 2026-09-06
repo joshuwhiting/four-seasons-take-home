@@ -219,3 +219,6 @@ __marimo__/
 
 #folders
 /videos
+
+# macOS
+.DS_Store
