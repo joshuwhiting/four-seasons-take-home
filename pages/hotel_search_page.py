@@ -9,10 +9,13 @@ class HotelSearchPage(BasePage):
     # be multiple matching buttons — expand every collapsed one.
     def expand_region(self, region_name: str):
         buttons = self.page.get_by_role("button", name=region_name)
-        visible_button = buttons.filter(visible=True)
-        visible_button.wait_for()
-        if visible_button.get_attribute("aria-expanded") == "false":
-            visible_button.click()
+        visible_buttons = buttons.filter(visible=True)
+        visible_buttons.first.wait_for()
+        count = visible_buttons.count()
+        for i in range(count):
+            button = visible_buttons.nth(i)
+            if button.get_attribute("aria-expanded") == "false":
+                button.click()
 
     # Navigates to that property's page.
     def select_property(self, property_link_name: str):
