@@ -6,7 +6,7 @@ import re
 PRICE_RE = re.compile(r"[A-Z]{3}\s+([\d,]+(?:\.\d+)?)")
 
 
-def parse_cad_amount(text: str | None) -> float:
+def parse_price_amount(text: str | None):
     match = PRICE_RE.search(text or "")
     assert match is not None, f"Could not parse an amount from: {text!r}"
     return float(match.group(1).replace(",", ""))

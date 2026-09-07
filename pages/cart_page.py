@@ -1,5 +1,5 @@
 from pages.base_page import BasePage
-from utils.price_helpers import PRICE_RE, parse_cad_amount
+from utils.price_helpers import PRICE_RE, parse_price_amount
 
 
 # booking cart
@@ -29,4 +29,4 @@ class CartPage(BasePage):
     def get_room_subtotal(self):
         text = self._panel.get_by_text(PRICE_RE).first.text_content()
         assert text is not None, "Could not find a price in the cart panel"
-        return parse_cad_amount(text)
+        return parse_price_amount(text)
