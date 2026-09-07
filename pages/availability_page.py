@@ -1,7 +1,6 @@
-import re
 from playwright.sync_api import TimeoutError as PlaywrightTimeoutError
 from pages.base_page import BasePage
-from utils.price_helpers import parse_cad_amount
+from utils.price_helpers import PRICE_RE, parse_cad_amount
 
 # Room results for the selected property and dates.
 class AvailabilityPage(BasePage):
@@ -35,7 +34,7 @@ class AvailabilityPage(BasePage):
     # the "Avg. price per night" shown on the first available room card, as a number
     def get_first_room_nightly_price(self):
         room_card = self._first_available_room_card()
-        price = room_card.get_by_text(re.compile(r"CAD\s+[\d,.]+")).first.text_content()
+        price = room_card.get_by_text(PRICE_RE).first.text_content()
         return parse_cad_amount(price)
 
     def add_first_room_to_cart(self):
