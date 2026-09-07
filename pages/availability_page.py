@@ -42,6 +42,4 @@ class AvailabilityPage(BasePage):
         button = room_card.locator('[data-tracking-id="add-to-cart"]').first
         button.scroll_into_view_if_needed()
         button.click()
-        # Adding a room sends the browser to a post-add "enhance your stay"
-        # upsell page and flips the header control to "view cart".
-        self.page.get_by_role("button", name="view cart").last.wait_for(timeout=30000)
+        self.page.wait_for_url("**/discover/**", timeout=30000)

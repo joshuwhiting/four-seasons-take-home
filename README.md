@@ -80,7 +80,9 @@ pytest tests/test_book_room.py
   `CalendarDateUnavailable` for clean fallback control flow.
 - Interstitials handled explicitly: cookie/privacy dialog, the post-add upsell
   page, and the header control flipping to "view cart".
-- Explicit `wait_for()` on meaningful elements rather than fixed sleeps.
+- Explicit `wait_for()` on meaningful elements rather than fixed sleeps for
+  synchronization. (The one `wait_for_timeout` in the test is a deliberate pause
+  to hold the final cart view on screen for the video recording, not a sync wait.)
 
 ### Verification approach
 
