@@ -1,9 +1,17 @@
+import pytest
+
 from pages.hotel_search_page import HotelSearchPage
 from pages.property_page import PropertyPage
 from pages.availability_page import AvailabilityPage
 from pages.cart_page import CartPage
 
-def test_search_select_dates_add_to_cart_and_verify(page):
+
+# One property today; parametrized so adding a hotel/region is a one-line
+# change with no edits to the test body.
+@pytest.mark.parametrize("region,property_name", [
+    ("North America", "Los Cabos (Cabo Del Sol)"),
+])
+def test_search_select_dates_add_to_cart_and_verify(page, region, property_name):
     search_page = HotelSearchPage(page)
     property_page = PropertyPage(page)
     availability_page = AvailabilityPage(page)
@@ -11,8 +19,8 @@ def test_search_select_dates_add_to_cart_and_verify(page):
 
     # 1. Navigate and select hotel
     search_page.goto(HotelSearchPage.URL)
-    search_page.expand_region("North America")
-    search_page.select_property("Los Cabos (Cabo Del Sol)")
+    search_page.expand_region(region)
+    search_page.select_property(property_name)
 
     # 2. Select dates and check rates, retrying one week later if sold out
     nights = property_page.select_dates_with_retry(availability_page, days_from_now=30)
