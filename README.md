@@ -16,7 +16,9 @@ Following the assessment's required flow:
 
 ## Test Recording
 
-[Test Run](Recording/test_recording.webm)
+<video src="https://github.com/joshuwhiting/four-seasons-take-home/raw/main/Recording/test_recording.webm" controls muted width="640"></video>
+
+_If the player doesn't load, [download the recording](Recording/test_recording.webm)._
 
 ## Project structure
 
