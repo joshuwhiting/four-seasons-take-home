@@ -19,8 +19,7 @@ def test_search_select_dates_add_to_cart_and_verify(page, region, property_name)
 
     # 1. Navigate and select hotel
     search_page.goto(HotelSearchPage.URL)
-    search_page.expand_region(region)
-    search_page.select_property(property_name)
+    search_page.select_property(region, property_name)
 
     # 2. Select dates and check rates, retrying one week later if sold out
     nights = property_page.select_dates_with_retry(availability_page, days_from_now=30)

@@ -12,10 +12,8 @@ class CartPage(BasePage):
 
     # Clicks the button that opens the cart panel
     def open_cart(self):
-        # A cookie/privacy dialog can sit over the page on first load.
-        agree = self.page.get_by_role("button", name="Agree")
-        if agree.count() and agree.first.is_visible():
-            agree.first.click()
+        # A cookie/privacy dialog can reappear after later navigations.
+        self.dismiss_cookie_banner(timeout=1000)
         self.page.get_by_role("button", name="View cart").last.click()
         self._panel.wait_for(timeout=15000)
 

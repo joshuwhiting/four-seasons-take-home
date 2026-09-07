@@ -17,6 +17,12 @@ class HotelSearchPage(BasePage):
             if button.get_attribute("aria-expanded") == "false":
                 button.click()
 
-    # Navigates to that property's page.
-    def select_property(self, property_link_name: str):
-        self.page.get_by_role("link", name=property_link_name).filter(visible=True).first.click()
+    # Navigates to that property's page. Only expands the region accordion(s) if
+    # the property link isn't already reachable, so a dropdown that's already
+    # open is left untouched.
+    def select_property(self, region_name: str, property_link_name: str):
+        link = self.page.get_by_role("link", name=property_link_name).filter(visible=True).first
+        if not link.is_visible():
+            self.expand_region(region_name)
+            link.wait_for(state="visible")
+        link.click()
