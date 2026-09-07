@@ -29,6 +29,7 @@ def test_search_select_dates_add_to_cart_and_verify(page):
     actual_total = cart_page.get_room_subtotal()
 
     # 5 Confirms the price is the expected price
+    page.wait_for_timeout(2000)
     assert abs(actual_total - expected_total) < 1.00, (
         f"Cart subtotal {actual_total} doesn't match expected {expected_total} "
         f"({nightly_price} x {nights} nights)"

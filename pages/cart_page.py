@@ -19,10 +19,13 @@ class CartPage(BasePage):
         self.page.get_by_role("button", name="View cart").last.click()
         self._panel.wait_for(timeout=15000)
 
-    def verify_room(self):
-        # Each line item in the cart has a "Remove" control.
-        return self._panel.get_by_role("button", name="Remove").first.is_visible()
-
+    def verify_room(self) -> bool:
+        try:
+            self._panel.get_by_role("button", name="Remove").first.wait_for(timeout=10000)
+            return True
+        except Exception:
+            return False
+        
     # The cart line item shows the stay subtotal (nightly rate x nights),
     # not the per-night price shown on the availability page.
     def get_room_subtotal(self):
