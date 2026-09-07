@@ -5,8 +5,7 @@ from utils.price_helpers import PRICE_RE, parse_price_amount
 # Room results for the selected property and dates.
 class AvailabilityPage(BasePage):
 
-    # private function to find "Add to Cart" buttons (data-tracking-id is
-    # more stable than button text — also naturally excludes rooms that
+    # private function to find "Add to Cart" buttons, also naturally excludes rooms that
     # only show "Select Bed Options" instead)
     def _add_to_cart_buttons(self):
         return self.page.locator('[data-tracking-id="add-to-cart"]')

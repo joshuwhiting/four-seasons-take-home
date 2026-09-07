@@ -12,9 +12,7 @@ class BasePage:
         self.dismiss_cookie_banner()
 
     # The cookie/privacy consent banner is injected a moment after load and can
-    # sit over the page and gate session JS. Dismiss it once, up front.
-    # timeout is generous after a fresh navigation (the banner loads late) and
-    # short for opportunistic re-checks where the page is already settled.
+    # sit over the page. Dismiss it once, up front.
     def dismiss_cookie_banner(self, timeout: int = 5000):
         agree = self.page.get_by_role("button", name="Agree")
         try:
