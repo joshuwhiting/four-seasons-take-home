@@ -1,9 +1,9 @@
 name: Four Seasons Booking Test
 
 on:
-  schedule:
+  # schedule:
     # Runs once a day at 09:00 UTC. Cron syntax: minute hour day month weekday.
-    - cron: "0 9 * * *"
+    # - cron: "0 9 * * *"
   workflow_dispatch:
 
 jobs:
